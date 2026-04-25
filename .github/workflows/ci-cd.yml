@@ -19,16 +19,15 @@ jobs:
           docker push navaneethacosmic/flask-app:latest
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@master
-        with:
-          host: 52.194.190.71
-          username: ec2-user
-          key: ${{ secrets.secretkey }}
-          script: |
-            sudo docker pull navaneethacosmic/flask-app:latest
-            sudo docker stop flask-app || true
-            sudo docker rm flask-app || true
-            sudo docker run -d -p 5001:5001 --name flask-app navaneethacosmic/flask-app:latest
+        run: |
+          echo "${{ secrets.secretkey }}" > key.pem
+          chmod 400 key.pem
+          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@52.194.190.71 "
+          sudo docker pull navaneethacosmic/flask-app:latest &&
+          sudo docker stop flask-app || true &&
+          sudo docker rm flask-app || true &&
+          sudo docker run -d -p 5001:5001 --name flask-app navaneethacosmic/flask-app:latest
+          "
 
       - name: Pipeline Summary
         run: |
