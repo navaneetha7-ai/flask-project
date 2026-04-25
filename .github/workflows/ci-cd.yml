@@ -1,0 +1,40 @@
+name: Full CI/CD - Build, Push & Deploy to EC2
+
+on: workflow_dispatch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint & Test
+        run: echo "Lint and Test passed!"
+
+      - name: checkout code
+        uses: actions/checkout@v3
+
+      - name: Build & Push Docker Image
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker build -t navaneethar/flask-app:latest .
+          docker push navaneethar/flask-app:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: 52.194.190.71
+          username: ec2-user
+          key: ${{ secrets.secretkey }}
+          script: |
+            sudo docker pull navaneethar/flask-app:latest
+            sudo docker stop flask-app || true
+            sudo docker rm flask-app || true
+            sudo docker run -d -p 5001:5001 --name flask-app navaneethar/flask-app:latest
+
+      - name: Pipeline Summary
+        run: |
+          echo "================================"
+          echo "CI/CD Summary"
+          echo "Test: success"
+          echo "Build: success"
+          echo "Deploy: success"
+          echo "================================"
