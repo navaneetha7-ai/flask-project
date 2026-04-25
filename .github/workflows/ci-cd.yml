@@ -35,9 +35,9 @@ jobs:
 
       - name: Pipeline Summary
         run: |
-          echo "================================"
-          echo "CI/CD Summary"
-          echo "Test: success"
-          echo "Build: success"
-          echo "Deploy: success"
-          echo "================================"
+          echo "### 🚀 CI/CD Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Step | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| ✅ Test | success |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🐳 Build | success |" >> $GITHUB_STEP_SUMMARY
+          echo "| 🚀 Deploy | success |" >> $GITHUB_STEP_SUMMARY
