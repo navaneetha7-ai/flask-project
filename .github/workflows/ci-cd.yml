@@ -15,8 +15,8 @@ jobs:
       - name: Build & Push Docker Image
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker build -t navaneethar/flask-app:latest .
-          docker push navaneethar/flask-app:latest
+          docker build -t navaneethacosmic/flask-app:latest .
+          docker push navaneethacosmic/flask-app:latest
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@master
@@ -25,10 +25,10 @@ jobs:
           username: ec2-user
           key: ${{ secrets.secretkey }}
           script: |
-            sudo docker pull navaneethar/flask-app:latest
+            sudo docker pull navaneethacosmic/flask-app:latest
             sudo docker stop flask-app || true
             sudo docker rm flask-app || true
-            sudo docker run -d -p 5001:5001 --name flask-app navaneethar/flask-app:latest
+            sudo docker run -d -p 5001:5001 --name flask-app navaneethacosmic/flask-app:latest
 
       - name: Pipeline Summary
         run: |
