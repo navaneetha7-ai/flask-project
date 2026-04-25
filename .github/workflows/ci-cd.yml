@@ -18,11 +18,9 @@ jobs:
           docker build -t navaneethacosmic/flask-app:latest .
           docker push navaneethacosmic/flask-app:latest
 
-      - name: Deploy to EC2
+     - name: Deploy to EC2
         run: |
-          echo "${{ secrets.secretkey }}" > key.pem
-          chmod 400 key.pem
-          ssh -o StrictHostKeyChecking=no -i key.pem ec2-user@52.194.190.71 "
+          sshpass -p "Team@1234" ssh -o StrictHostKeyChecking=no ec2-user@52.194.190.71 "
           sudo docker pull navaneethacosmic/flask-app:latest &&
           sudo docker stop flask-app || true &&
           sudo docker rm flask-app || true &&
