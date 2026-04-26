@@ -1,4 +1,5 @@
 from flask import Flask
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -8,59 +9,56 @@ def home():
     <!DOCTYPE html>
     <html>
     <head>
-        <title>Flask DevOps App</title>
+        <title>Flask DevOps App | Team Navaneetha</title>
         <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
             body {
-                font-family: Arial, sans-serif;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                font-family: 'Segoe UI', sans-serif;
+                background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+                min-height: 100vh;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
-                margin: 0;
             }
-            .card {
-                background: white;
-                padding: 40px;
-                border-radius: 20px;
+            .container {
+                background: rgba(255,255,255,0.05);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 24px;
+                padding: 50px;
                 text-align: center;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                max-width: 600px;
+                box-shadow: 0 30px 80px rgba(0,0,0,0.5);
             }
-            h1 { color: #667eea; font-size: 2.5em; }
-            .badge {
-                display: inline-block;
-                background: #667eea;
+            .logo { font-size: 3em; margin-bottom: 10px; }
+            h1 {
                 color: white;
-                padding: 8px 16px;
-                border-radius: 20px;
-                margin: 5px;
-                font-size: 0.9em;
+                font-size: 2.2em;
+                font-weight: 700;
+                margin-bottom: 5px;
             }
-            .status {
-                background: #00c853;
+            .subtitle {
+                color: #a78bfa;
+                font-size: 1em;
+                margin-bottom: 30px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+            .divider {
+                border: none;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                margin: 25px 0;
+            }
+            .tech-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                margin: 20px 0;
+            }
+            .tech-card {
+                background: rgba(255,255,255,0.08);
+                border: 1px solid rgba(255,255,255,0.1);
+                border-radius: 12px;
+                padding: 15px 10px;
                 color: white;
-                padding: 10px 20px;
-                border-radius: 10px;
-                margin-top: 20px;
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="card">
-            <h1>🚀 Flask DevOps App</h1>
-            <h3>👩‍💻 Team Navaneetha</h3>
-            <br>
-            <span class="badge">🐍 Python Flask</span>
-            <span class="badge">🐳 Docker</span>
-            <span class="badge">☁️ AWS EC2</span>
-            <span class="badge">🔄 CI/CD</span>
-            <span class="badge">📦 GitHub Actions</span>
-            <div class="status">✅ Live & Running on AWS!</div>
-        </div>
-    </body>
-    </html>
-    """
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5001)
+                font-siz
